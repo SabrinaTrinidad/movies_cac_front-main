@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagenes desde API</title>
+    <style>
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .image-container div {
+            margin: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Imagenes desde API</h1>
+    <div class="image-container" id="imageContainer"></div>
+
+    <script>
+        const container = document.getElementById('imageContainer');
+
+        fetch('https://rickandmortyapi.com/api/character')  // Cambiado a la endpoint correcta para obtener imágenes
+            .then(response => response.json())
+            .then(datos => {
+                datos.results.forEach(element => {
+                    const div = document.createElement('div');
+                    const img = document.createElement('img');
+                    img.src = element.image;
+                    img.alt = element.name;
+                    img.style.width = '200px';
+                    const p = document.createElement('p');
+                    p.textContent = element.name;
+                    div.appendChild(img);
+                    div.appendChild(p);
+                    container.appendChild(div);
+                });
+            })
+            .catch(err => console.log(err));
+    </script>
+</body>
+</html>
